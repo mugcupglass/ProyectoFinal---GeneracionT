@@ -1,0 +1,343 @@
+.advanced-todo-item {
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.advanced-todo-item:hover {
+  border-color: #cbd5e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+.advanced-todo-item.completed {
+  background: #f7fafc;
+  border-color: #e2e8f0;
+  opacity: 0.8;
+}
+
+.advanced-todo-item.overdue {
+  border-color: #e53e3e;
+  background: #fed7d7;
+}
+
+.advanced-todo-item.due-today {
+  border-color: #ed8936;
+  background: #fef5e7;
+}
+
+.todo-main-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 15px;
+}
+
+.todo-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  flex: 1;
+}
+
+.todo-checkbox {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #cbd5e0;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.todo-checkbox:hover {
+  border-color: #dc2626; /* Rojo */
+  transform: scale(1.1);
+}
+
+.todo-checkbox.checked {
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); /* Rojo */
+  border-color: #dc2626; /* Rojo */
+}
+
+.checkmark {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.todo-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.todo-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.priority-badge,
+.category-badge,
+.due-date-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.priority-badge {
+  background: #f7fafc;
+  color: #4a5568;
+}
+
+.priority-baja { background: #fef2f2; color: #dc2626; } /* Rojo claro */
+.priority-media { background: #e0e7ff; color: #3730a3; }
+.priority-alta { background: #f3e8ff; color: #6b21a8; }
+.priority-urgente { background: #fce7f3; color: #be185d; }
+
+.category-badge {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.due-date-badge {
+  background: #dbeafe;
+  color: #1f2937; /* Negro */
+}
+
+.due-date-badge.overdue {
+  background: #fce7f3;
+  color: #be185d;
+}
+
+.due-date-badge.due-today {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.todo-text-container {
+  margin: 8px 0;
+}
+
+.todo-text {
+  font-size: 1rem;
+  color: #2d3748;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.todo-text.completed-text {
+  text-decoration: line-through;
+  color: #a0aec0;
+}
+
+.todo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.tag {
+  background: #e2e8f0;
+  color: #4a5568;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.action-button {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.action-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details-button:hover { background: #ebf8ff; border-color: #90cdf4; }
+.edit-button:hover { background: #e0e7ff; border-color: #a5b4fc; }
+.delete-button:hover { background: #fce7f3; border-color: #f9a8d4; }
+.save-button:hover { background: #dbeafe; border-color: #93c5fd; }
+.cancel-button:hover { background: #fce7f3; border-color: #f9a8d4; }
+
+.todo-details {
+  border-top: 1px solid #e2e8f0;
+  padding: 20px;
+  background: #f8fafc;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; max-height: 0; }
+  to { opacity: 1; max-height: 500px; }
+}
+
+.details-section {
+  margin-bottom: 20px;
+}
+
+.details-section:last-child {
+  margin-bottom: 0;
+}
+
+.details-section h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin: 0 0 12px 0;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-value {
+  font-size: 0.9rem;
+  color: #2d3748;
+}
+
+.todo-notes {
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #4a5568;
+  margin: 0;
+}
+
+.edit-details {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-top: 16px;
+}
+
+.edit-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.edit-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.edit-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.edit-input,
+.edit-select,
+.edit-textarea {
+  padding: 8px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: #ffffff;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.edit-input:focus,
+.edit-select:focus,
+.edit-textarea:focus {
+  border-color: #dc2626; /* Rojo */
+  box-shadow: 0 0 0 2px rgba(45, 27, 105, 0.1);
+}
+
+.edit-textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+@media (max-width: 768px) {
+  .todo-main-content {
+    padding: 15px;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .todo-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .todo-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .todo-actions {
+    align-self: flex-end;
+  }
+  
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .edit-row {
+    grid-template-columns: 1fr;
+  }
+}

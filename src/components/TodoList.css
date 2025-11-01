@@ -1,0 +1,41 @@
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.todos-container {
+  min-height: 200px;
+}
+
+.todos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #718096;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.6;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 300px;
+  margin: 0 auto;
+}

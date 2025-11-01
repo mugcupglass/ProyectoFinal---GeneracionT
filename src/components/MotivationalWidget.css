@@ -1,0 +1,206 @@
+.motivational-widget {
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  border-radius: 20px;
+  padding: 25px;
+  margin: 20px 0;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
+}
+
+.motivational-widget::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+.celebration-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: celebrationFadeIn 0.5s ease;
+}
+
+.celebration-message {
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  color: white;
+  padding: 30px 50px;
+  border-radius: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  animation: celebrationBounce 0.6s ease;
+  box-shadow: 0 20px 40px rgba(220, 38, 38, 0.5);
+}
+
+@keyframes celebrationFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes celebrationBounce {
+  0%, 20%, 50%, 80%, 100% { transform: scale(1); }
+  40% { transform: scale(1.1); }
+  60% { transform: scale(1.05); }
+}
+
+.motivational-content {
+  position: relative;
+  z-index: 2;
+}
+
+.progress-message {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.progress-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.progress-stats {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.quote-section {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  border-left: 4px solid rgba(255, 255, 255, 0.3);
+}
+
+.quote-text {
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.quote-author {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.quote-category {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 8px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.tip-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.tip-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.tip-text {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.progress-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffffff 0%, #f0f0f0 100%);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+  position: relative;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.progress-percentage {
+  font-size: 1.1rem;
+  font-weight: bold;
+  min-width: 50px;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .motivational-widget {
+    padding: 20px;
+    margin: 15px 0;
+  }
+  
+  .progress-text {
+    font-size: 1rem;
+  }
+  
+  .quote-text {
+    font-size: 1rem;
+  }
+  
+  .celebration-message {
+    font-size: 1.5rem;
+    padding: 20px 30px;
+  }
+}

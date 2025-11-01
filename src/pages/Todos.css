@@ -1,0 +1,137 @@
+.todos-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.todos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 24px 32px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.todos-header-content h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e1b4b;
+  margin: 0 0 8px 0;
+}
+
+.todos-header-content p {
+  font-size: 1.1rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.add-todo-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); /* Rojo */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(45, 27, 105, 0.4);
+}
+
+.add-todo-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 27, 105, 0.5);
+}
+
+.button-icon {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.todos-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.todos-section {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.todos-list {
+  padding: 24px;
+  min-height: 200px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #64748b;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.6;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e1b4b;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 300px;
+  margin: 0 auto 20px;
+}
+
+.create-first-todo {
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); /* Rojo */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(45, 27, 105, 0.4);
+}
+
+.create-first-todo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(45, 27, 105, 0.5);
+}
+
+@media (max-width: 768px) {
+  .todos-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+    text-align: center;
+  }
+  
+  .todos-header-content h1 {
+    font-size: 1.5rem;
+  }
+  
+  .add-todo-button {
+    justify-content: center;
+  }
+  
+  .todos-list {
+    padding: 16px;
+  }
+}
