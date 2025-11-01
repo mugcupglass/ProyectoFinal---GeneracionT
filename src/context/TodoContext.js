@@ -167,6 +167,8 @@ export const useTodos = () => {
 export const TodoProvider = ({ children }) => {
   const [state, dispatch] = useReducer(todoReducer, initialState);
   const [loaded, setLoaded] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [lastLoadedTodos, setLastLoadedTodos] = useState(null);
 
   // Cargar datos desde Supabase (con fallback a localStorage)
   useEffect(() => {
@@ -204,7 +206,9 @@ export const TodoProvider = ({ children }) => {
               dueDate: todo.due_date,
               completedAt: todo.completed_at
             }));
+            setLastLoadedTodos(JSON.stringify(formattedTodos));
             dispatch({ type: ACTIONS.LOAD_TODOS, payload: formattedTodos });
+            return; // Salir temprano si cargamos desde Supabase
           }
 
           // Cargar settings desde Supabase
@@ -231,90 +235,55 @@ export const TodoProvider = ({ children }) => {
         
         }
       
-      // Fallback a localStorage si Supabase no está configurado o falla
+      // Fallback a localStorage solo si Supabase NO está configurado o falló completamente
+      if (!supabase) {
     const savedTodos = localStorage.getItem('jaky-todos-advanced');
     const savedSettings = localStorage.getItem('jaky-settings');
     
     if (savedTodos) {
-      dispatch({ type: ACTIONS.LOAD_TODOS, payload: JSON.parse(savedTodos) });
+          const parsedTodos = JSON.parse(savedTodos);
+          setLastLoadedTodos(JSON.stringify(parsedTodos));
+          dispatch({ type: ACTIONS.LOAD_TODOS, payload: parsedTodos });
     }
     
     if (savedSettings) {
       const settings = JSON.parse(savedSettings);
-        dispatch({ type: ACTIONS.UPDATE_SETTINGS, payload: settings });
-        if (settings.theme) {
-          if (settings.theme === 'dark') {
-            document.body.classList.add('dark-mode');
-          } else {
-            document.body.classList.remove('dark-mode');
+          dispatch({ type: ACTIONS.UPDATE_SETTINGS, payload: settings });
+          if (settings.theme) {
+            if (settings.theme === 'dark') {
+              document.body.classList.add('dark-mode');
+            } else {
+              document.body.classList.remove('dark-mode');
+            }
           }
         }
-    }
+      }
+      
     setLoaded(true);
+      setIsInitialLoad(false);
     };
 
     loadData();
   }, []);
 
-  // Guardar todos en Supabase cuando cambien (con fallback a localStorage)
-  // Nota: Las operaciones individuales (addTodo, toggleTodo, etc.) ya guardan en Supabase
-  // Este useEffect es un respaldo para sincronizar cambios que no pasaron por esas funciones
+  // Guardar todos en localStorage cuando cambien (solo si Supabase no está configurado)
+  // NOTA: No guardamos en Supabase automáticamente aquí porque las operaciones individuales
+  // (addTodo, toggleTodo, deleteTodo, editTodo) ya guardan directamente en Supabase
   useEffect(() => {
-    if (!loaded || !state.settings.autoSave) return;
+    if (!loaded || isInitialLoad || !state.settings.autoSave) return;
     
-    const saveTodos = async () => {
-      try {
-        if (supabase && state.todos.length > 0) {
-          // Para cada todo, verificar si existe en Supabase y sincronizar
-          for (const todo of state.todos) {
-            // Solo sincronizar todos que tienen IDs numéricos (vienen de Supabase)
-            // Los IDs temporales (Date.now() + Math.random()) se ignoran aquí
-            // porque ya fueron guardados por addTodo cuando se crearon
-            if (typeof todo.id === 'number' && todo.id < 10000000000000) {
-              // ID parece ser de Supabase, verificar si existe
-              const { data: existing, error: checkError } = await supabase
-                .from('todos')
-                .select('id')
-                .eq('id', todo.id)
-                .single();
-
-              const todoData = {
-                text: todo.text,
-                completed: todo.completed,
-                category: todo.category,
-                priority: todo.priority,
-                due_date: todo.dueDate,
-                completed_at: todo.completedAt,
-                updated_at: todo.updatedAt || new Date().toISOString()
-              };
-
-              if (existing && !checkError) {
-                // Actualizar si existe
-                await supabase
-                  .from('todos')
-                  .update(todoData)
-                  .eq('id', todo.id);
-              }
-            }
-          }
-        } else {
-          // Fallback a localStorage si Supabase no está configurado
-          localStorage.setItem('jaky-todos-advanced', JSON.stringify(state.todos));
-        }
-      } catch (error) {
-        console.error('Error guardando todos:', error);
-        // Fallback a localStorage
-        localStorage.setItem('jaky-todos-advanced', JSON.stringify(state.todos));
-      }
-    };
-
-    // Usar debounce para evitar demasiadas llamadas
-    const timeoutId = setTimeout(() => {
-      saveTodos();
-    }, 2000); // Esperar 2 segundos después del último cambio
-
-    return () => clearTimeout(timeoutId);
-  }, [state.todos, loaded, state.settings.autoSave]);
+    // Evitar guardar si acabamos de cargar los mismos datos
+    const currentTodosStr = JSON.stringify(state.todos);
+    if (currentTodosStr === lastLoadedTodos) {
+        return;
+    }
+    
+    // Solo guardar en localStorage si Supabase NO está configurado
+    // Si Supabase está configurado, las funciones individuales se encargan del guardado
+    if (!supabase) {
+      localStorage.setItem('jaky-todos-advanced', currentTodosStr);
+    }
+  }, [state.todos, loaded, state.settings.autoSave, isInitialLoad, lastLoadedTodos]);
 
   // Guardar settings en Supabase cuando cambien (con fallback a localStorage)
   useEffect(() => {
